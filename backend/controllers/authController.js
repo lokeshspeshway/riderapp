@@ -1,5 +1,5 @@
 const { User, OTP } = require('../models');
-const { sendOTP } = require('../services/otpService');
+const { sendOTP } = require('../services/otpServices');
 const jwt = require('jsonwebtoken');
 
 exports.sendOTP = async (req, res) => {
