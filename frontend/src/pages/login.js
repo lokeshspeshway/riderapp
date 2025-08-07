@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Button,
   Container,
   FormControl,
@@ -21,15 +20,24 @@ export default function Login() {
 
   const handleSendOTP = async () => {
     if (!phone) return alert('Please enter phone number');
-    await api.post('/auth/send-otp', { phone });
-    setStep(2);
+    try {
+      await api.post('/auth/send-otp', { phone });
+      setStep(2);
+
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to send OTP');
+    }
   };
 
   const handleVerifyOTP = async () => {
     if (!code) return alert('Please enter OTP');
-    const res = await api.post('/auth/verify-otp', { phone, code, role });
-    localStorage.setItem('token', res.data.token);
-    alert(`Logged in as ${res.data.user.role}`);
+    try {
+      const res = await api.post('/auth/verify-otp', { phone, code, role });
+      localStorage.setItem('token', res.data.token);
+      alert(`Logged in as ${res.data.user.role}`);
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed to verify OTP');
+    }
   };
 
   return (
@@ -69,7 +77,7 @@ export default function Login() {
               onClick={handleSendOTP}
               sx={{ mt: 2 }}
             >
-              Send OTP
+              Send & Login
             </Button>
           </>
         ) : (

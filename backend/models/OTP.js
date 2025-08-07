@@ -1,16 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const OTP = sequelize.define("OTP", {
-    phone: DataTypes.STRING,
-    code: DataTypes.STRING,
-    expiresAt: DataTypes.DATE
-  });
-  return OTP;
-};
-module.exports = (sequelize, DataTypes) => {
-  const OTP = sequelize.define("OTP", {
-    phone: DataTypes.STRING,
-    code: DataTypes.STRING,
-    expiresAt: DataTypes.DATE
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    code: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    expiresAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   });
   return OTP;
 };

@@ -1,17 +1,32 @@
+
 module.exports = (sequelize, DataTypes) => {
   const Ride = sequelize.define("Ride", {
-    riderId: DataTypes.INTEGER,
+    riderId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     driverId: DataTypes.INTEGER,
-    pickupLocation: DataTypes.STRING,
-    dropLocation: DataTypes.STRING,
+    pickupLocation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    dropLocation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     status: {
       type: DataTypes.ENUM('requested', 'accepted', 'in_progress', 'completed', 'cancelled'),
-      defaultValue: 'requested'
+      defaultValue: 'requested',
     },
-    fare: DataTypes.FLOAT,
+    fare: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: { min: 0 }
+    },
     estimatedTime: DataTypes.STRING,
     vehicleType: DataTypes.STRING,
     surgeMultiplier: { type: DataTypes.FLOAT, defaultValue: 1.0 }
   });
+
   return Ride;
 };
